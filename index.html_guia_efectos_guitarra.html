@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Efectos para Guitarra — Zoom G1X Four</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0f0f;
+    --paper: #f7f5f0;
+    --mid: #e8e4dc;
+    --muted: #8a8680;
+    --accent: #2c5f8a;
+    --accent-light: #d6e8f5;
+    --warm: #c4521a;
+    --warm-light: #fdeee6;
+    --green: #2a6644;
+    --green-light: #ddf0e8;
+    --purple: #4a2e7a;
+    --purple-light: #ede8f8;
+    --amber: #8a6200;
+    --amber-light: #fdf3d6;
+    --rule: #d0ccc4;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #f0ede8;
+      --paper: #141210;
+      --mid: #2a2824;
+      --muted: #7a766e;
+      --accent: #6aabda;
+      --accent-light: #0d2436;
+      --warm: #e07a4a;
+      --warm-light: #2a1508;
+      --green: #5aaa80;
+      --green-light: #0a2018;
+      --purple: #9a78e8;
+      --purple-light: #1a0e2e;
+      --amber: #d4aa40;
+      --amber-light: #221900;
+      --rule: #2e2c28;
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-display);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 14px 16px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  nav a:hover, nav a.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 860px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2rem;
+  }
+  .tag {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .8rem;
+  }
+  h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 1.6rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: .6rem;
+  }
+  p { margin-bottom: 1rem; color: var(--ink); }
+  p:last-child { margin-bottom: 0; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 80px 1px 1fr;
+    gap: 0 1.5rem;
+    padding-bottom: 2.4rem;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-year {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 2px;
+    text-align: right;
+  }
+  .tl-line { background: var(--rule); position: relative; }
+  .tl-line::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .tl-content h3 { font-size: 1rem; margin-bottom: .3rem; }
+  .tl-content p { font-size: .9rem; color: var(--muted); margin: 0; }
+
+  /* EFFECT CARDS */
+  .effects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .effect-card {
+    background: var(--paper);
+    padding: 1.4rem;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .effect-card:hover { background: var(--mid); }
+  .effect-card.active { background: var(--accent-light); }
+  .effect-icon {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+  .effect-card h3 { font-size: 1rem; margin-bottom: .3rem; }
+  .effect-card p { font-size: .82rem; color: var(--muted); margin: 0; }
+
+  .effect-detail {
+    display: none;
+    background: var(--accent-light);
+    border-radius: 12px;
+    padding: 1.6rem;
+    margin-top: 1rem;
+  }
+  .effect-detail.visible { display: block; }
+  .effect-detail h3 { color: var(--accent); margin-bottom: .8rem; }
+  .params-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .param {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    background: var(--paper);
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  /* ARTISTS */
+  .artist-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .artist-tab {
+    padding: 7px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--rule);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all .15s;
+    font-family: var(--font-display);
+  }
+  .artist-tab:hover { background: var(--mid); color: var(--ink); }
+  .artist-tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .artist-panel { display: none; }
+  .artist-panel.visible { display: block; }
+
+  .song-list { display: flex; flex-direction: column; gap: 12px; }
+  .song-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+  .song-title { font-weight: 600; font-size: .95rem; margin-bottom: .2rem; }
+  .song-artist { font-size: .82rem; color: var(--muted); margin-bottom: .5rem; }
+  .song-desc { font-size: .82rem; color: var(--ink); line-height: 1.5; }
+  .song-effects {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+  }
+  .song-effect-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .tag-drive { background: var(--warm-light); color: var(--warm); }
+  .tag-mod { background: var(--purple-light); color: var(--purple); }
+  .tag-time { background: var(--accent-light); color: var(--accent); }
+  .tag-dyn { background: var(--green-light); color: var(--green); }
+  .tag-clean { background: var(--mid); color: var(--muted); }
+
+  /* ZOOM SECTION */
+  .zoom-chain {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+  .chain-block {
+    flex-shrink: 0;
+    padding: .7rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--paper);
+    text-align: center;
+    min-width: 100px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .chain-block:hover { border-color: var(--accent); background: var(--accent-light); }
+  .chain-block.cb-dyn { border-color: var(--green); }
+  .chain-block.cb-drive { border-color: var(--warm); }
+  .chain-block.cb-mod { border-color: var(--purple); }
+  .chain-block.cb-time { border-color: var(--accent); }
+  .chain-label { font-size: .75rem; font-weight: 600; margin-bottom: 2px; }
+  .chain-sub { font-size: .7rem; color: var(--muted); font-family: var(--font-mono); }
+  .chain-arrow {
+    color: var(--muted);
+    font-size: 1.2rem;
+    padding: 0 .3rem;
+    flex-shrink: 0;
+  }
+
+  .patches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .patch-card {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.3rem;
+    background: var(--paper);
+  }
+  .patch-name {
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    color: var(--accent);
+    margin-bottom: .4rem;
+  }
+  .patch-desc { font-size: .85rem; color: var(--muted); margin-bottom: .8rem; }
+  .patch-chain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .patch-link { font-size: .75rem; }
+
+  /* TIPS */
+  .tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+  .tip {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 1.2rem;
+    background: var(--amber-light);
+    border-radius: 8px;
+    border-left: 3px solid var(--amber);
+  }
+  .tip-num {
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--amber);
+    padding-top: 1px;
+  }
+  .tip-text { font-size: .9rem; line-height: 1.55; }
+  .tip-text strong { color: var(--amber); font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: .8rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.2rem 2.4rem; }
+    section { padding: 2.4rem 1.2rem; }
+    nav { padding: 0 .5rem; }
+    .tl-item { grid-template-columns: 56px 1px 1fr; }
+    .song-card { grid-template-columns: 1fr; }
+    .song-effects { flex-direction: row; flex-wrap: wrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="#historia" class="active">Historia</a>
+  <a href="#tipos">Tipos de efecto</a>
+  <a href="#musicos">Músicos y canciones</a>
+  <a href="#zoom">Zoom G1X Four</a>
+  <a href="#patches">Patches para Ezer</a>
+  <a href="#tips">Tips</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Guía ejecutiva · Guitarra eléctrica · 2025</div>
+  <h1>Efectos para guitarra.<br><em>Todo lo que necesitas saber.</em></h1>
+  <p class="hero-sub">Historia, tipos de efectos, referencia de músicos por canción, y aplicación práctica en el Zoom G1X Four. Orientado a guitarra Squier Stratocaster en contexto de worship.</p>
+  <div class="hero-tags">
+    <span class="tag">Squier Stratocaster</span>
+    <span class="tag">Zoom G1X Four</span>
+    <span class="tag">Worship</span>
+    <span class="tag">Rock / Blues</span>
+    <span class="tag">Indie</span>
+  </div>
+</div>
+
+<!-- HISTORIA -->
+<section id="historia">
+  <div class="section-label">01 — Historia</div>
+  <h2>Cómo llegamos a los efectos modernos</h2>
+  <p style="color:var(--muted); margin-bottom: 2rem;">Los efectos no nacieron en un laboratorio. Nacieron por accidente, curiosidad y el deseo de sonar diferente.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1940s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>El accidente que cambió todo</h3>
+        <p>Les Paul conecta dos grabadoras de cinta para crear el primer eco artificial. Guitarristas descubren que los amplificadores rotos con tubos dañados producen un sonido "sucio" que les encanta. Nace el overdrive por accidente.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1950s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>El reverb de cámara y la cinta</h3>
+        <p>Los estudios de grabación en Hollywood usan cámaras de eco de piedra para agregar "espacio" a las grabaciones. Elvis, Buddy Holly y Chuck Berry graban con estos reverbs naturales. Fender lanza los primeros amplificadores con reverb de resorte incorporado en 1961.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1960s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>La explosión psicodélica</h3>
+        <p>Jimi Hendrix populariza el Fuzz Face y el Wah-Wah. Los Beatles experimentan con phaser y flanger en cinta ("tape flanging"). El treble booster de Brian May (Queen) nace en esta era. Es la primera vez que los efectos se vuelven parte del sonido identitario de un artista.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1970s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>Los pedales analógicos clásicos</h3>
+        <p>MXR lanza el Phase 90 (1974), el Distortion+ y el Carbon Copy. Boss introduce pedales compactos accesibles. El chorus se vuelve el sonido definitivo del rock de la época. David Gilmour (Pink Floyd) define el uso del delay y sustain en rock progresivo.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1980s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>El digital entra al juego</h3>
+        <p>Aparecen los primeros reverbs digitales (Lexicon, Yamaha SPX90). El chorus digital y el delay digital dominan. U2 y The Edge construyen su identidad sonora sobre delay con tempo sincronizado. El rack de efectos reemplaza el tablero de pedales en el rock profesional.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1990s</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>Los multiefectos democratizan el sonido</h3>
+        <p>Zoom, Boss y DigiTech lanzan procesadores digitales accesibles. Un guitarrista de garage puede sonar como The Edge o SRV por $200. Paralelamente, el grunge (Nirvana, Pearl Jam) regresa a pedales analógicos simples: un Big Muff y poco más.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2000s–hoy</div>
+      <div class="tl-line"></div>
+      <div class="tl-content">
+        <h3>Modelado y el worship moderno</h3>
+        <p>Kemper, Fractal y Line 6 modelan amplificadores digitalmente. El worship moderno (Hillsong, Elevation, Bethel) define nuevos estándares: reverb "shimmer", delay sutil, overdrive transparente y pedales de expresión para crear texturas ambientales. El G1X Four es el heredero accesible de toda esta historia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOS DE EFECTOS -->
+<section id="tipos">
+  <div class="section-label">02 — Tipos de efecto</div>
+  <h2>Los 4 grupos que debes conocer</h2>
+  <p style="color:var(--muted); margin-bottom: 1.5rem;">Toca cualquier tarjeta para ver detalles, parámetros y cómo suena.</p>
+
+  <div class="effects-grid">
+    <div class="effect-card" onclick="showEffect('dinamica')">
+      <div class="effect-icon">Grupo 01</div>
+      <h3>Dinámica</h3>
+      <p>Controla el volumen y el ruido. Compresor, noise gate, limiter.</p>
+    </div>
+    <div class="effect-card" onclick="showEffect('ganancia')">
+      <div class="effect-icon">Grupo 02</div>
+      <h3>Ganancia / Drive</h3>
+      <p>Modifica la señal eléctrica para crear distorsión. Boost, overdrive, distorsión, fuzz.</p>
+    </div>
+    <div class="effect-card" onclick="showEffect('modulacion')">
+      <div class="effect-icon">Grupo 03</div>
+      <h3>Modulación</h3>
+      <p>Agrega movimiento y textura al sonido. Chorus, phaser, flanger, tremolo, vibrato.</p>
+    </div>
+    <div class="effect-card" onclick="showEffect('tiempo')">
+      <div class="effect-icon">Grupo 04</div>
+      <h3>Tiempo / Espacio</h3>
+      <p>Crea profundidad y ambiente. Delay, reverb, echo.</p>
+    </div>
+  </div>
+
+  <div class="effect-detail" id="detail-dinamica">
+    <h3>Dinámica — el guardián de tu señal</h3>
+    <p><strong>Compresor:</strong> Iguala el volumen entre notas fuertes y suaves. Resultado: sustain más largo, sonido más "pegado". Esencial en funk y worship limpio.</p>
+    <p><strong>Noise gate:</strong> Corta el ruido de fondo cuando no estás tocando. Imprescindible si usas distorsión alta.</p>
+    <p><strong>Limiter:</strong> Versión agresiva del compresor. Nunca deja pasar picos de volumen.</p>
+    <div class="params-list">
+      <span class="param">Threshold</span>
+      <span class="param">Attack</span>
+      <span class="param">Release</span>
+      <span class="param">Ratio</span>
+      <span class="param">Level</span>
+    </div>
+  </div>
+
+  <div class="effect-detail" id="detail-ganancia">
+    <h3>Ganancia / Drive — del calor a la tormenta</h3>
+    <p><strong>Boost:</strong> Sube el volumen limpio. Útil para solos sin cambiar el tono.</p>
+    <p><strong>Overdrive:</strong> Saturación suave, cálida. Simula un amplificador empujado al límite. Ideal para blues y worship. Referencia: Ibanez TS9 Tube Screamer.</p>
+    <p><strong>Distorsión:</strong> Recorte más agresivo de la onda. Rock clásico, metal. Referencia: ProCo RAT, Boss DS-1.</p>
+    <p><strong>Fuzz:</strong> Distorsión extrema y caótica. Vintage, psicodélico. Referencia: Fuzz Face de Hendrix.</p>
+    <div class="params-list">
+      <span class="param">Gain / Drive</span>
+      <span class="param">Tone</span>
+      <span class="param">Level</span>
+      <span class="param">Bass / Mid / Treble</span>
+    </div>
+  </div>
+
+  <div class="effect-detail" id="detail-modulacion">
+    <h3>Modulación — movimiento y textura</h3>
+    <p><strong>Chorus:</strong> Duplica tu señal ligeramente desafinada y desfasada. Efecto "voz doble". El sonido más reconocible de los 80s. Referencia: Nirvana "Come As You Are".</p>
+    <p><strong>Phaser:</strong> Barre ciertas frecuencias en ciclos. Sonido "wobbly". Referencia: Van Halen "Eruption".</p>
+    <p><strong>Flanger:</strong> Chorus más extremo. Sonido tipo "jet". Referencia: Heart "Barracuda".</p>
+    <p><strong>Tremolo:</strong> Sube y baja el volumen rítmicamente. Referencia: Pink Floyd "Money".</p>
+    <p><strong>Vibrato:</strong> Sube y baja el tono rítmicamente. Distinto al tremolo del brazo de tu Stratocaster.</p>
+    <div class="params-list">
+      <span class="param">Rate / Speed</span>
+      <span class="param">Depth</span>
+      <span class="param">Mix</span>
+      <span class="param">Tone</span>
+    </div>
+  </div>
+
+  <div class="effect-detail" id="detail-tiempo">
+    <h3>Tiempo / Espacio — profundidad y ambiente</h3>
+    <p><strong>Delay:</strong> Repite tu nota con un retardo de tiempo. Puedes sincronizar el tiempo al BPM de la canción (Tap Tempo). Es el efecto más usado en worship moderno.</p>
+    <p><strong>Reverb:</strong> Simula el espacio acústico: sala, iglesia, caverna, estadio. El "Hall" simula una sala grande — perfecto para Ezer.</p>
+    <p><strong>Echo:</strong> Delay con feedback alto. Las repeticiones se desvanecen lentamente.</p>
+    <p><strong>Shimmer:</strong> Reverb con armónicos añadidos (octava arriba). Muy usado en Hillsong y Bethel para texturas etéreas.</p>
+    <div class="params-list">
+      <span class="param">Time / BPM</span>
+      <span class="param">Feedback</span>
+      <span class="param">Mix / Level</span>
+      <span class="param">Tone / Color</span>
+      <span class="param">Decay</span>
+    </div>
+  </div>
+</section>
+
+<!-- MÚSICOS -->
+<section id="musicos">
+  <div class="section-label">03 — Referencia</div>
+  <h2>Músicos, canciones y efectos exactos</h2>
+  <p style="color:var(--muted); margin-bottom: 1.5rem;">Selecciona el género para ver qué usan, cómo lo usan y por qué suena así.</p>
+
+  <div class="artist-tabs">
+    <button class="artist-tab active" onclick="showArtist('worship')">Worship moderno</button>
+    <button class="artist-tab" onclick="showArtist('rock')">Rock clásico</button>
+    <button class="artist-tab" onclick="showArtist('blues')">Blues</button>
+    <button class="artist-tab" onclick="showArtist('indie')">Indie / alternativo</button>
+  </div>
+
+  <!-- WORSHIP -->
+  <div class="artist-panel visible" id="panel-worship">
+    <div class="song-list">
+      <div class="song-card">
+        <div>
+          <div class="song-title">Oceans (Where Feet May Fail)</div>
+          <div class="song-artist">Hillsong United · 2013</div>
+          <div class="song-desc">Joel Houston usa un delay stereo de cuarto de nota sincronizado al BPM con reverb "Hall" grande. La introducción icónica es solo delay + reverb sobre una línea melódica limpia en Stratocaster. El secreto: el delay está siempre activo, incluso sin tocar.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-clean">Limpio</span>
+          <span class="song-effect-tag tag-time">Delay quarter-note</span>
+          <span class="song-effect-tag tag-time">Reverb Hall</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">What A Beautiful Name</div>
+          <div class="song-artist">Hillsong Worship · 2016</div>
+          <div class="song-desc">Ben Fielding combina compresor suave + overdrive transparente tipo Tube Screamer con gain muy bajo (30%). El chorus sutil crea anchura sin ser evidente. Para el puente climático activa distorsión media. Es el ejemplo perfecto de construcción dinámica en worship.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-dyn">Compresor</span>
+          <span class="song-effect-tag tag-drive">OD suave</span>
+          <span class="song-effect-tag tag-mod">Chorus sutil</span>
+          <span class="song-effect-tag tag-time">Reverb</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Do It Again</div>
+          <div class="song-artist">Elevation Worship · 2017</div>
+          <div class="song-desc">Guitarra lead con delay de corchea (dotted eighth — el "truco del Edge"). Crea un patrón rítmico complejo sin tocar notas rápido. Reverb shimmer en el pad de guitarra del fondo. Overdrive medio-alto solo en el puente final.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-time">Delay dotted 8th</span>
+          <span class="song-effect-tag tag-time">Reverb shimmer</span>
+          <span class="song-effect-tag tag-drive">OD medio</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Reckless Love</div>
+          <div class="song-artist">Bethel Music · 2017</div>
+          <div class="song-desc">Cory Asbury. La guitarra usa un tremolo suave en la intro (volumen que sube y baja rítmicamente), reverb amplio tipo "plate", y un overdrive de baja ganancia para los accordes llenos. El tremolo es el efecto signature de esta canción.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-mod">Tremolo</span>
+          <span class="song-effect-tag tag-time">Reverb Plate</span>
+          <span class="song-effect-tag tag-drive">OD bajo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROCK CLÁSICO -->
+  <div class="artist-panel" id="panel-rock">
+    <div class="song-list">
+      <div class="song-card">
+        <div>
+          <div class="song-title">Where The Streets Have No Name</div>
+          <div class="song-artist">U2 · The Edge · 1987</div>
+          <div class="song-desc">El sonido más imitado del rock moderno. The Edge usa un delay "dotted eighth note" sincronizado al BPM — toca corcheas simples y el delay crea el patrón rítmico de dieciséis. Chorus digital de TC Electronic para anchura. Casi cero overdrive — la compresión hace el sustain. Esta técnica nació aquí.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-clean">Limpio</span>
+          <span class="song-effect-tag tag-time">Delay dotted 8th</span>
+          <span class="song-effect-tag tag-mod">Chorus</span>
+          <span class="song-effect-tag tag-time">Reverb corto</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">The Scientist</div>
+          <div class="song-artist">Coldplay · Jonny Buckland · 2002</div>
+          <div class="song-desc">Reverb "Room" grande, delay de quarter-note a nivel bajo para profundidad sin ser evidente. La guitarra suena "sola en un cuarto grande". Sobresale la simplicidad: pocas notas, mucho espacio. El compás de 6/8 hace que el delay suene a vals. Ideal para aprender control de espacio.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-clean">Limpio</span>
+          <span class="song-effect-tag tag-time">Reverb Room</span>
+          <span class="song-effect-tag tag-time">Delay quarter</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Yellow</div>
+          <div class="song-artist">Coldplay · Jonny Buckland · 2000</div>
+          <div class="song-desc">El arpegio de intro usa chorus muy sutil (casi imperceptible) + reverb amplio. Cuando entra el coro, el overdrive bajo entra para "empujar" el sonido sin distorsionar. Demostración perfecta de cómo el overdrive puede ser solo calor, no ruido.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-mod">Chorus sutil</span>
+          <span class="song-effect-tag tag-time">Reverb</span>
+          <span class="song-effect-tag tag-drive">OD mínimo</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Even Flow</div>
+          <div class="song-artist">Pearl Jam · Mike McCready · 1991</div>
+          <div class="song-desc">McCready conecta un Dunlop Cry Baby Wah + Distorsión media (ProCo RAT). En el solo usa Wah en movimientos lentos y expresivos, no el clásico "chicka-wah" rápido. El fraseo bluesy hace la diferencia. Para el Zoom: usa el pedal de expresión como Wah + el módulo de distorsión.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-mod">Wah / Expresión</span>
+          <span class="song-effect-tag tag-drive">Distorsión media</span>
+          <span class="song-effect-tag tag-time">Reverb corto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLUES -->
+  <div class="artist-panel" id="panel-blues">
+    <div class="song-list">
+      <div class="song-card">
+        <div>
+          <div class="song-title">Pride and Joy</div>
+          <div class="song-artist">Stevie Ray Vaughan · 1983</div>
+          <div class="song-desc">SRV usaba Stratocaster con cuerdas calibre 13 (muy gruesas) directo a un Dumble o Vibroverb al máximo volumen. El "overdrive" era del amplificador, no de un pedal. Para el Zoom: overdrive a ganancia media-alta, tone hacia el centro, compresor sutil. La magia es la velocidad y la dinámica del toque.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-dyn">Compresor ligero</span>
+          <span class="song-effect-tag tag-drive">OD ampli (sim)</span>
+          <span class="song-effect-tag tag-time">Reverb corto</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Texas Flood</div>
+          <div class="song-artist">Stevie Ray Vaughan · 1983</div>
+          <div class="song-desc">Blues lento y expresivo. Un Tube Screamer en el loop para "push" adicional al ampli ya caliente. Vibrato de brazo (el tremolo de la Strat). Sustain infinito gracias al volumen alto del ampli. Es el modelo de uso de dinámica: toca suave y el sonido es limpio; toca fuerte y se parte naturalmente.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-drive">Tube Screamer</span>
+          <span class="song-effect-tag tag-clean">Limpio dinámico</span>
+          <span class="song-effect-tag tag-time">Reverb Spring</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Bright Lights</div>
+          <div class="song-artist">Gary Clark Jr · 2012</div>
+          <div class="song-desc">Clark mezcla blues, soul y rock. Usa un Big Muff para fuzz heavy en momentos climáticos, un Tube Screamer para overdrive medio, y limpio para el groove. El secreto es el control del volumen de la guitarra — baja el volumen del instrumento y el fuzz se vuelve overdrive suave. En el G1X Four: usa el pedal de expresión para volumen.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-drive">Fuzz (clímax)</span>
+          <span class="song-effect-tag tag-drive">OD medio</span>
+          <span class="song-effect-tag tag-clean">Limpio</span>
+          <span class="song-effect-tag tag-mod">Wah ocasional</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDIE -->
+  <div class="artist-panel" id="panel-indie">
+    <div class="song-list">
+      <div class="song-card">
+        <div>
+          <div class="song-title">Fake Plastic Trees</div>
+          <div class="song-artist">Radiohead · Jonny Greenwood · 1995</div>
+          <div class="song-desc">Greenwood usa un trémolo de amplificador Fender lento y profundo. La guitarra slide sobre Stratocaster con reverb "Hall". Sin distorsión — toda la emoción viene de la dinámica del toque y el trémolo. Es un ejemplo magistral de "menos es más". El trémolo lento crea una sensación de inestabilidad emocional que complementa la letra.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-mod">Tremolo lento</span>
+          <span class="song-effect-tag tag-time">Reverb Hall</span>
+          <span class="song-effect-tag tag-clean">Limpio</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">How To Disappear Completely</div>
+          <div class="song-artist">Radiohead · Jonny Greenwood · 2000</div>
+          <div class="song-desc">Ondes Martenot + guitarra con delay de octavo y reverb enorme. La guitarra suena como si viniera de otra habitación — mezcla baja con reverb altísimo. La técnica: el mix del reverb casi al 100% y el delay feedback muy alto crean el efecto de "guitarra flotante". Aplicación directa: Ezer en momentos contemplativos.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-time">Reverb extremo</span>
+          <span class="song-effect-tag tag-time">Delay largo</span>
+          <span class="song-effect-tag tag-clean">Limpio</span>
+        </div>
+      </div>
+      <div class="song-card">
+        <div>
+          <div class="song-title">Bloodbuzz Ohio</div>
+          <div class="song-artist">The National · Aaron Dessner · 2010</div>
+          <div class="song-desc">Overdrive de baja ganancia siempre activo — no distorsiona, solo añade "cuerpo". Chorus muy sutil para anchura. Delay de corchea en guitarras de textura (no lead). El National es la escuela de "efectos para soportar, no para protagonizar". La guitarra sirve a la canción, nunca se impone. Ideal para rol de segunda guitarra en worship.</div>
+        </div>
+        <div class="song-effects">
+          <span class="song-effect-tag tag-drive">OD mínimo</span>
+          <span class="song-effect-tag tag-mod">Chorus sutil</span>
+          <span class="song-effect-tag tag-time">Delay textura</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZOOM G1X FOUR -->
+<section id="zoom">
+  <div class="section-label">04 — Zoom G1X Four</div>
+  <h2>Tu pedalera, explicada</h2>
+  <p style="color:var(--muted); margin-bottom: 1.5rem;">El G1X Four contiene todos los efectos anteriores en una sola caja. Aquí está la lógica de cómo fluye tu señal.</p>
+
+  <div class="zoom-chain">
+    <div class="chain-block" style="background:var(--mid);">
+      <div class="chain-label">Guitarra</div>
+      <div class="chain-sub">INPUT</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block cb-dyn">
+      <div class="chain-label">Dinámica</div>
+      <div class="chain-sub">Comp / Gate</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block cb-drive">
+      <div class="chain-label">Drive</div>
+      <div class="chain-sub">OD / Dist</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block cb-mod">
+      <div class="chain-label">Modulación</div>
+      <div class="chain-sub">CHO / PH</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block cb-time">
+      <div class="chain-label">Delay</div>
+      <div class="chain-sub">TIME</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block cb-time">
+      <div class="chain-label">Reverb</div>
+      <div class="chain-sub">SPACE</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-block" style="background:var(--mid);">
+      <div class="chain-label">Ampli / PA</div>
+      <div class="chain-sub">OUTPUT</div>
+    </div>
+  </div>
+
+  <div style="background:var(--amber-light); border-radius:10px; padding:1.2rem 1.4rem; margin-bottom:1.5rem; border-left:3px solid var(--amber);">
+    <strong style="color:var(--amber); font-size:.9rem;">Regla de oro del orden:</strong>
+    <p style="font-size:.85rem; margin-top:.4rem; margin-bottom:0;">Dinámica → Drive → Modulación → Delay → Reverb. Puedes reordenar dentro del G1X Four, pero este orden es el estándar. La razón: la distorsión después del delay distorsiona las repeticiones — raramente lo que quieres.</p>
+  </div>
+
+  <h3 style="margin-bottom:1rem;">Controles clave del G1X Four</h3>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.8rem;">
+    <div style="padding:1rem; border:1px solid var(--rule); border-radius:8px;">
+      <div style="font-family:var(--font-mono); font-size:10px; color:var(--accent); margin-bottom:.4rem;">FOOTSWITCH A+B</div>
+      <div style="font-size:.85rem;">Hold 2 seg → <strong>Afinador cromático</strong>. Silencia la señal mientras afinas en vivo.</div>
+    </div>
+    <div style="padding:1rem; border:1px solid var(--rule); border-radius:8px;">
+      <div style="font-family:var(--font-mono); font-size:10px; color:var(--accent); margin-bottom:.4rem;">FOOTSWITCH TAP</div>
+      <div style="font-size:.85rem;"><strong>Tap Tempo:</strong> Toca al ritmo de la canción. El delay se sincroniza al BPM automáticamente.</div>
+    </div>
+    <div style="padding:1rem; border:1px solid var(--rule); border-radius:8px;">
+      <div style="font-family:var(--font-mono); font-size:10px; color:var(--accent); margin-bottom:.4rem;">5 PERILLAS</div>
+      <div style="font-size:.85rem;">Cada perilla controla un parámetro del efecto activo en pantalla. Giras y escuchas en tiempo real.</div>
+    </div>
+    <div style="padding:1rem; border:1px solid var(--rule); border-radius:8px;">
+      <div style="font-family:var(--font-mono); font-size:10px; color:var(--accent); margin-bottom:.4rem;">PEDAL EXPRESIÓN</div>
+      <div style="font-size:.85rem;">Por defecto = volumen. Configurable como Wah, Pitch, o cualquier parámetro. Tu quinta mano.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PATCHES PARA EZER -->
+<section id="patches">
+  <div class="section-label">05 — Patches para Ezer</div>
+  <h2>Tres patches base para la Hora Santa</h2>
+  <p style="color:var(--muted); margin-bottom: 1.5rem;">Estos tres patches cubren el 90% de lo que necesitas en Ezer. Guárdalos en los footswitches A, B y C.</p>
+  <div class="patches-grid">
+    <div class="patch-card" style="border-color:var(--accent);">
+      <div class="patch-name">PATCH A · Limpio + Espacio</div>
+      <div class="patch-desc">Para adoración tranquila, letras íntimas, inicio de canciones. Referencia: Oceans (Hillsong), Fake Plastic Trees (Radiohead).</div>
+      <div class="patch-chain">
+        <span class="song-effect-tag tag-dyn">Comp leve</span>
+        <span class="song-effect-tag tag-clean">Limpio</span>
+        <span class="song-effect-tag tag-time">Delay quarter</span>
+        <span class="song-effect-tag tag-time">Reverb Hall</span>
+      </div>
+      <div style="margin-top:.8rem; font-size:.78rem; color:var(--muted); font-family:var(--font-mono);">Delay mix: 35% · Reverb decay: alto · Tap tempo activo</div>
+    </div>
+    <div class="patch-card" style="border-color:var(--warm);">
+      <div class="patch-name">PATCH B · Cálido + Textura</div>
+      <div class="patch-desc">Para coros, momentos de entrega moderada. Referencia: What A Beautiful Name, Yellow (Coldplay), Bloodbuzz Ohio (The National).</div>
+      <div class="patch-chain">
+        <span class="song-effect-tag tag-dyn">Comp</span>
+        <span class="song-effect-tag tag-drive">OD bajo</span>
+        <span class="song-effect-tag tag-mod">Chorus sutil</span>
+        <span class="song-effect-tag tag-time">Reverb</span>
+      </div>
+      <div style="margin-top:.8rem; font-size:.78rem; color:var(--muted); font-family:var(--font-mono);">OD gain: 25–35% · Chorus depth: bajo · Reverb mix: 30%</div>
+    </div>
+    <div class="patch-card" style="border-color:var(--purple);">
+      <div class="patch-name">PATCH C · Clímax</div>
+      <div class="patch-desc">Para momentos de máxima entrega, puentes climáticos. Referencia: Do It Again (Elevation), Reckless Love (Bethel).</div>
+      <div class="patch-chain">
+        <span class="song-effect-tag tag-drive">OD medio</span>
+        <span class="song-effect-tag tag-time">Delay dotted 8th</span>
+        <span class="song-effect-tag tag-time">Reverb Plate</span>
+      </div>
+      <div style="margin-top:.8rem; font-size:.78rem; color:var(--muted); font-family:var(--font-mono);">OD gain: 45–55% · Delay dotted 8th sincronizado · Reverb corto</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem; padding:1.2rem 1.4rem; background:var(--green-light); border-radius:10px; border-left:3px solid var(--green);">
+    <strong style="color:var(--green); font-size:.9rem;">Estrategia en vivo:</strong>
+    <p style="font-size:.85rem; margin-top:.4rem; margin-bottom:0;">Empieza siempre en Patch A (limpio). Sube a B en el coro. Llega a C solo en el puente o clímax final. Usa el Tap Tempo antes de cada canción para sincronizar. El pedal de expresión en modo volumen te permite entrar suavemente sin click.</p>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="section-label">06 — Tips</div>
+  <h2>Lo que aprendes después de un año</h2>
+  <div class="tips-list">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-text"><strong>Menos ganancia, más expresión.</strong> La mayoría de guitarristas principiantes sube demasiado el drive. Con una Stratocaster, el pickup del medio + overdrive al 30% ya suena a Texas. Sube el volumen del ampli, no el gain.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-text"><strong>El Tap Tempo es disciplina, no un lujo.</strong> En worship, el delay que no está sincronizado arruina el groove. Antes de cada canción: Tap → Tap → Tap al ritmo del baterista. 5 segundos que cambian todo.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-text"><strong>El reverb esconde los errores pero amplifica los buenos momentos.</strong> En adoración lenta, un reverb grande cubre notas imprecisas. Pero cuando tocas bien y el reverb es grande, cada nota resuena como una oración. No abuses — úsalo con intención.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">04</div>
+      <div class="tip-text"><strong>La pickup hace más diferencia que el efecto.</strong> En tu Squier Strat: pickup del cuello = cálido y oscuro (blues). Pickup del medio = limpio y brillante (funk/worship). Pickup del puente = brillante y mordaz (rock/solo). Cambia el switch antes de cambiar el patch.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">05</div>
+      <div class="tip-text"><strong>El silencio es un efecto.</strong> Los mejores momentos en Ezer no son cuando todos tocan — son cuando la guitarra para y solo queda el reverb decayendo. Aprende a dejar de tocar en el momento exacto y dejar que el espacio hable.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">06</div>
+      <div class="tip-text"><strong>Conecta el G1X Four al PA directamente, no al amplificador.</strong> En iglesia, el sistema de sonido ya tiene su propio "espacio". Conectado directo al DI del PA + los efectos de la pedalera = control total. Si usas ampli + PA al mismo tiempo, el reverb se duplica y pierde claridad.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Zona de Ezer · Guitarra eléctrica · Zoom G1X Four · Squier Stratocaster
+</footer>
+
+<script>
+  function showEffect(id) {
+    document.querySelectorAll('.effect-detail').forEach(d => d.classList.remove('visible'));
+    document.querySelectorAll('.effect-card').forEach(c => c.classList.remove('active'));
+    const detail = document.getElementById('detail-' + id);
+    if (detail) detail.classList.add('visible');
+    event.currentTarget.classList.add('active');
+  }
+
+  function showArtist(id) {
+    document.querySelectorAll('.artist-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.artist-tab').forEach(t => t.classList.remove('active'));
+    const panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.add('visible');
+    event.currentTarget.classList.add('active');
+  }
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
